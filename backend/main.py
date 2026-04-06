@@ -36,6 +36,13 @@ async def index():
     return HTMLResponse(content=html_path.read_text())
 
 
+@app.get("/privacy", response_class=HTMLResponse)
+async def privacy():
+    """Serve the privacy policy page."""
+    html_path = FRONTEND_DIR / "privacy.html"
+    return HTMLResponse(content=html_path.read_text())
+
+
 @app.get("/auth/login")
 async def auth_login():
     """Redirect to Facebook OAuth consent screen."""
