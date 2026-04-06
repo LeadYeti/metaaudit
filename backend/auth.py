@@ -34,6 +34,9 @@ async def exchange_code_for_token(code: str) -> str:
     }
     async with httpx.AsyncClient() as client:
         response = await client.get(FACEBOOK_TOKEN_URL, params=params)
+        if response.status_code != 200:
+            print(f"Token exchange failed: {response.status_code} - {response.text}")
+            print(f"App ID: {META_APP_ID}, Secret length: {len(META_APP_SECRET)}, Secret starts: {META_APP_SECRET[:4]}")
         response.raise_for_status()
         data = response.json()
     return data["access_token"]
